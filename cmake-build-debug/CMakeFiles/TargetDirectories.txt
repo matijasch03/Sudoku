@@ -1,0 +1,3 @@
+/home/matija/CLionProjects/Sudoku/cmake-build-debug/CMakeFiles/Sudoku.dir
+/home/matija/CLionProjects/Sudoku/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/matija/CLionProjects/Sudoku/cmake-build-debug/CMakeFiles/rebuild_cache.dir
