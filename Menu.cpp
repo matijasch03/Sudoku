@@ -58,47 +58,53 @@ void Menu::menuLoop() {
 
         // generated puzzle and written in the file
         if (choice == 2) {
-            playGame("mySudoku.txt");
+            playGame("mySudoku.txt", false);
 
         }
         else if (choice == 1){
-            playGame("sudoku1.txt");
-
-            // restoring data to "sudoku1.txt" if the user was wrong
-            if (whoSolvesChoice == 1) {
-                std::ifstream sourceFile("sudoku2.txt");
-                std::ofstream destinationFile("sudoku1.txt");
-                destinationFile << sourceFile.rdbuf();
-                sourceFile.close();
-                destinationFile.close();
-            }
+            playGame("mySudoku.txt", true);
         }
     }
 }
 
-void Menu::playGame(char* fileName) {
-    Sudoku9 s1;
-    s1.generateSudokuPuzzle();
-    writeSudokuInFile(fileName, s1.getMatrix());
-    whoSolves();
-    // user wrote his solution in the file
-    s1.solveSudoku();
+void Menu::playGame(char* fileName, bool userCreated) {
+    try {
 
-    // user plays the game
-    if (whoSolvesChoice == 1) {
-        unsigned short **matrix = loadSudokuFromFile(fileName);
-        Sudoku9 s2(matrix);
-        s1.gameNumber--;    // 2 puzzles are created, but only one is played
-        s2.setGeneratedPlaces(s1.getGeneratedPlaces());
-        s2.printSudokuTable();
-        s2.evaluateSudoku(s1);
+        Sudoku9 solvedSudoku;
+        unsigned short usersGeneratedPlaces = 0;
+        if (!userCreated) {
+            solvedSudoku.generateSudokuPuzzle();
+            writeSudokuInFile(fileName, solvedSudoku.getMatrix());
 
-        // computer solves sudoku
-    } else if (whoSolvesChoice == 2) {
-        s1.printSudokuTable();
-        s1.evaluateSudoku(s1);
-    } else {
-        std::cout << "Error: You chose invalid option." << std::endl;
+        } else if (solvedSudoku.isUnsolvedSudokuValid(fileName, usersGeneratedPlaces)) {
+            unsigned short **matrix = loadSudokuFromFile(fileName);
+            solvedSudoku.setMatrix(matrix);
+            solvedSudoku.setGeneratedPlaces(81 - usersGeneratedPlaces);;
+        }
+        if (!solvedSudoku.solveSudoku())
+            std::cout << "Error: Unable to solve the sudoku puzzle." << std::endl;
+        whoSolves();
+
+        // user plays the game
+        if (whoSolvesChoice == 1) {
+            unsigned short **matrix = loadSudokuFromFile(fileName);
+            Sudoku9 usersSudoku(matrix);
+            Sudoku9::gameNumber--;    // 2 puzzles are created, but only one is played
+            usersSudoku.setGeneratedPlaces(solvedSudoku.getGeneratedPlaces());
+            usersSudoku.printSudokuTable();
+            usersSudoku.evaluateSudoku(solvedSudoku);
+
+            writeSudokuInFile("solvedSudoku.txt", solvedSudoku.getMatrix());
+
+            // computer solves sudoku
+        } else if (whoSolvesChoice == 2) {
+            solvedSudoku.printSudokuTable();
+            solvedSudoku.evaluateSudoku(solvedSudoku);
+        } else {
+            std::cout << "Error: You chose invalid option." << std::endl;
+        }
+    } catch (const std::exception& e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
     }
 }
 

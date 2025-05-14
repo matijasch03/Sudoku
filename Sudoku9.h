@@ -78,6 +78,8 @@
       */
      void setRightPlaces(unsigned short v);
 
+     void setMatrix(unsigned short **m);
+
       /**
        * @brief Print each number from Sudoku table on console separating them with "|"
        */
@@ -159,6 +161,14 @@
       * @return True if all right
       */
      bool isSudokuValid();
+
+     /**
+      * @brief Check if user's created unsolved sudoku is valid
+      * @param fileName Name of file
+      * @param usersGeneratedPlaces generated places in case user created a puzzle
+      * @return True if all right
+      */
+     bool isUnsolvedSudokuValid(char *fileName, unsigned short& usersGeneratedPlaces);
 
      /**
       * @brief Shows how many fields are right

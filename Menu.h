@@ -62,8 +62,9 @@ public:
        /**
         * @brief Work composite actions with writing and solving sudoku
         * @param fileName name of file
+        * @param userCreated True if the user has created a sudoku puzzle
         */
-       void playGame(char* fileName);
+       void playGame(char* fileName, bool userCreated);
 
 };
 

@@ -8,6 +8,8 @@
 #include <iostream>
 #include <random>
 #include <cstring>
+#include <fstream>
+#include <sstream>
 #include "Sudoku9.h"
 
 int Sudoku9::gameNumber = 0;
@@ -65,6 +67,10 @@ void Sudoku9::setGeneratedPlaces(unsigned short v) {
 
 void Sudoku9::setRightPlaces(unsigned short v) {
     rightPlaces = v;
+}
+
+void Sudoku9::setMatrix(unsigned short **m) {
+    matrix = m;
 }
 
 void Sudoku9::printSudokuTable() {
@@ -342,7 +348,7 @@ void Sudoku9::evaluateSudoku(Sudoku9 &solved) {
         }
         rightPlaces -= generatedPlaces;
         short mistakes = solved.getRightPlaces() - rightPlaces;
-        if (mistakes < 0){
+        if (mistakes < 0) {
             std::cout << "Error: It's forbidden to change fields different from 0." << std::endl;
         }
         else {
@@ -356,3 +362,46 @@ void Sudoku9::evaluateSudoku(Sudoku9 &solved) {
     std::cout << "Game number: " << gameNumber << std::endl;
 
 }
+
+bool isUnsolvedRowValid(const std::string& line, unsigned short& zerosInRow) {
+    int digitCount = 0;
+    for (char ch : line) {
+        if (std::isdigit(ch)) {
+            digitCount++;
+            if (ch == 48)  // ASCII 0
+                ++zerosInRow;
+
+        } else if (!std::isspace(ch)) {
+            return false; // Invalid character
+        }
+    }
+    return digitCount == 9;
+}
+
+bool Sudoku9::isUnsolvedSudokuValid(char *fileName, unsigned short& usersGeneratedPlaces) {
+    std::ifstream inputFile(fileName);
+
+    // check if the file is open
+    if (!inputFile.is_open()) {
+        std::cerr << "Error: Unable to open the file" << std::endl;
+    }
+
+    std::string line;
+    int rowCount = 0;
+
+    while (std::getline(inputFile, line)) {
+        if (line.empty()) continue; // Skip empty lines
+        rowCount++;
+        unsigned short zerosInRow = 0;
+        if (!isUnsolvedRowValid(line, zerosInRow)) {
+            throw std::runtime_error("Invalid row at line " + std::to_string(rowCount) + ". Each row must have exactly 9 digits.\n");
+        }
+        usersGeneratedPlaces += zerosInRow;
+    }
+
+    if (rowCount != 9) {
+        std::cerr << "Matrix must have exactly 9 rows. Found: " << rowCount << "\n";
+        return false;
+    }
+}
+
