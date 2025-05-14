@@ -13,7 +13,7 @@
 
 
 bool SudokuTest::testLoadingSudoku() {
-    unsigned short** matrix = new unsigned short * [9];
+    auto** matrix = new unsigned short * [9];
     for (int i = 0; i < 9; ++i) {
         matrix[i] = new unsigned short [9];
         for (int j = 0; j < 9; ++j) {
@@ -25,7 +25,7 @@ bool SudokuTest::testLoadingSudoku() {
 }
 
 bool SudokuTest::testInvalidLoadingSudoku() {
-    unsigned short** matrix = new unsigned short * [9];
+    auto** matrix = new unsigned short * [9];
     for (int i = 0; i < 9; ++i) {
         matrix[i] = new unsigned short [8];
         for (int j = 0; j < 8; ++j) {

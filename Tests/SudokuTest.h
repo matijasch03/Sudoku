@@ -11,13 +11,13 @@
 
 class SudokuTest {
 public:
-    bool testLoadingSudoku();
-    bool testInvalidLoadingSudoku();
-    bool testCopyConstructor();
+    static bool testLoadingSudoku();
+    static bool testInvalidLoadingSudoku();
+    static bool testCopyConstructor();
 
-    bool testRangeSudoku();
-    bool testSolvedSudokuValidity();
-    bool testWritingInFile();
+    static bool testRangeSudoku();
+    static bool testSolvedSudokuValidity();
+    static bool testWritingInFile();
 };
 
 

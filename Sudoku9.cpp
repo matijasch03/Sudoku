@@ -48,7 +48,7 @@ Sudoku9::~Sudoku9() {
     for (int i = 0; i < 9; ++i) {
         delete[] matrix[i];     // deleting lines
     }
-    delete[] matrix;    // deleting array of pointers
+    delete[] matrix;    // deleting an array of pointers
 }
 
 unsigned short Sudoku9::getGeneratedPlaces() {
@@ -120,7 +120,7 @@ void Sudoku9::generateSudokuPuzzle() {
     // fill remaining blocks
     fillRemaining(0, 3);
 
-    // remove randomly some digits to make game
+    // randomly remove some digits to make game
     removeDigits();
 }
 
@@ -159,7 +159,7 @@ bool Sudoku9::fillRemaining(int i, int j) {
         return true;
     }
 
-    // blocks on the main diagonal are filled, so it's needed to skip them
+    // blocks on the main diagonal are filled, so it's necessary to skip them
     // check if we are in the first block
     if (i < 3) {
         if (j < 3) {
@@ -179,7 +179,7 @@ bool Sudoku9::fillRemaining(int i, int j) {
         if (j == 6) {
             i ++;
             j = 0;
-            // it could be the end of table, but it if there is more rows, just set j to 0
+            // it could be the end of the table, but it if there are more rows, just set j to 0
             if (i >= 9) {
                 return true;
             }
@@ -242,7 +242,7 @@ bool Sudoku9::solveSudoku() {
 
     for (int num = 1; num <= 9; ++num)
     {
-        // check if looks promising
+        // check if it looks promising
         if (checkIfSafe(row, col, num))
         {
             // make tentative assignment       
@@ -250,7 +250,7 @@ bool Sudoku9::solveSudoku() {
             if (solveSudoku())
                 return true;
 
-            matrix[row][col] = 0;   // this value have to be switched if it can
+            matrix[row][col] = 0;   // this value has to be switched if it can
         }
     }
     // this triggers backtracking
@@ -305,7 +305,7 @@ bool Sudoku9::isSudokuValid() {
 
     // checking blocks 3x3
     for (int i = 0; i < 7; i += 3) {
-        // j stores first column of each 3 * 3 block
+        // j stores the first column of each 3 * 3 block
         for (int j = 0; j < 7; j += 3) {
             memset(unique, false, sizeof(unique));
             for (int k = 0; k < 3; ++k) {

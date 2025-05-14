@@ -25,7 +25,7 @@ public:
      /**
       * @brief Print numerated options of menu on console
       */
-      void printOptions();
+      static void printOptions();
 
       /**
        * @brief The user should write a number from the menu

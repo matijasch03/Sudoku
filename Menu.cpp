@@ -53,7 +53,7 @@ void Menu::whoSolves() {
 
 void Menu::menuLoop() {
     while (choice != 3) {
-        this->printOptions();
+        printOptions();
         choice = Menu::chooseOption(1, 3);
 
         // generated puzzle and written in the file
@@ -128,7 +128,7 @@ unsigned short** Menu::loadSudokuFromFile(char *fileName) {
     }
 
     std::string line;
-    unsigned short** matrix= new unsigned short*[9];
+    auto** matrix= new unsigned short*[9];
 
     int i = 0;
     while (std::getline(inputFile, line)) {
