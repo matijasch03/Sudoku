@@ -354,6 +354,7 @@ void Sudoku9::evaluateSudoku(Sudoku9 &solved) {
         else {
             std::cout << "Number of right cells: " << rightPlaces << "/" << solved.getRightPlaces() << std::endl;
             std::cout << "Number of mistakes: " << mistakes << std::endl;
+            std::cout << "You can see the correct solved sudoku in the file 'solvedSudoku.txt'." << std::endl;
         }
     }
     else {

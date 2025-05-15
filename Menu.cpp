@@ -17,7 +17,7 @@ Menu::Menu() : choice(0), whoSolvesChoice(0) {}
 void Menu::printOptions() {
     std::cout << "*------*" << std::endl;
     std::cout << "Welcome to our menu for playing Sudoku game!" << std::endl << std::endl;
-    std::cout << "1. Load a sudoku puzzle from the file." << std::endl;
+    std::cout << "1. Load a sudoku puzzle from the file you can create by yourself." << std::endl;
     std::cout << "2. Generate new sudoku puzzle and write it to the file 'mySudoku.txt'." << std::endl;
     std::cout << "3. Exit the application" << std::endl;
 
@@ -46,7 +46,7 @@ unsigned short Menu::chooseOption(unsigned short downLimit, unsigned short upLim
 }
 
 void Menu::whoSolves() {
-    std::cout << "  1. Check my solution of sudoku from the file." << std::endl;
+    std::cout << "  1. Check my solution of sudoku from the file (Press Ctrl+S)." << std::endl;
     std::cout << "  2. Let the computer solve sudoku puzzle." << std::endl;
     whoSolvesChoice = Menu::chooseOption(1, 2);
 }
