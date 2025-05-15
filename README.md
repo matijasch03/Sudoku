@@ -113,4 +113,4 @@ The program supports the following:
 
 ## 📄 Report
 
-The project report (`Izvestaj.pdf`) includes a detailed description of the whole project.
+The project report (`Report.doc`) includes a detailed description of the whole project.
